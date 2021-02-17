@@ -43,22 +43,30 @@ class Exercise():
     def exercise(self):
         raise Exception("No Exercise defined!")
     
-class ExerciseSet():
-    def __init__(self, type, storage=JSONStorage()):
+    def setUp(self):
+        raise Exception("No SetUp defined!")
+    
+class MusicTrainer(): 
+    def __init__(self, storage=JSONStorage()):
         self.storage = storage
-        self.totalRepetitions = int(input("How many repetitions do you want to train? "))
         self.score = 0
-        if type == "interval":
-            self.exercise = IntervalExercise()
-        else: 
-            raise Exception("Exercise type unknown!")
+        self.exercise = None
 
-    def run(self):
-        self.startTime = time.time()
-        for i in range(0, self.totalRepetitions):
-            result = self.exercise.repeat()
-            self.score += result
-        self.endTime = time.time()
+    def run(self, type):
+        while True:
+            self.totalRepetitions = int(input("How many repetitions do you want to train? Or press 0 if you want to exit."))
+            if self.totalRepetitions == 0:
+                return
+            if type == "interval":
+                self.exercise = IntervalExercise()
+            else: 
+                raise Exception("Exercise type unknown!")
+            self.startTime = time.time()
+            for i in range(0, self.totalRepetitions):
+                result = self.exercise.repeat()
+                self.score += result
+            self.endTime = time.time()
+            self.storeResult()
 
     def storeResult(self):
         data = Data(
@@ -120,6 +128,5 @@ class IntervalExercise(Exercise):
 
 
 
-exerciseSet = ExerciseSet(type="interval")
-exerciseSet.run()
-exerciseSet.storeResult()
+musicTrainer = MusicTrainer()
+musicTrainer.run(type="interval")
