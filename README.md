@@ -2,9 +2,10 @@
 ## How to install
 - open console
 - cd into your workspace directory 
-- run ``gh repo clone Packebusch/musicTrainer``
+- clone repo
 - ``cd musicTrainer``
-- ``npm i`` (this will take a while) 
+- install expo
+- ``yarn install`` (this will take a while) 
 
 ## How to run
 - open console
