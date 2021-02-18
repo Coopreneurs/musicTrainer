@@ -16,7 +16,6 @@ import {
     Paragraph
 } from '../Components';
   
-
 import TRAININGS from '../Trainings';  
 
 const REPITITION_OPTIONS = [5, 10, 20, 30, 50]; 
@@ -30,6 +29,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#333',
+      height: 100
     }
   })
 
@@ -83,12 +83,12 @@ export default class TrainingScreen extends Component {
     render() {
       return (
         <SafeAreaView style={styles.container}>
-          <ScrollView>
-            {this.state.totalRepetitions == null? 
-              this.promptRepetitions()
-              : this.initTraining()
-            }
-          </ScrollView>
+            <ScrollView>
+                {this.state.totalRepetitions == null? 
+                this.promptRepetitions()
+                : this.initTraining()
+                }
+            </ScrollView>
         </SafeAreaView>
       )
     };

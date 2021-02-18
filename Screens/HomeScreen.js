@@ -59,7 +59,7 @@ export default class HomeScreen extends Component {
 
     render () {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView >
                 <ScrollView>
                     <Headline>Wähle eine Übung</Headline>
                     {
