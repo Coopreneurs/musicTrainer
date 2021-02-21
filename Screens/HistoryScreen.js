@@ -14,13 +14,6 @@ import {
 
 import { loadTrainings } from '../Store'; 
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#333',
-    },
-  })
-
 class HistoryScreenItem extends Component {
     render () {
       const {
@@ -61,7 +54,7 @@ export default class HistoryScreen extends Component {
     
     render () {
       return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
           <ScrollView>
             <Headline>Deine History</Headline>
             {

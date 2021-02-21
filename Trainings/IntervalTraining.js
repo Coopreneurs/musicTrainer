@@ -9,8 +9,7 @@ import {
 import {
   Text, 
   Headline,
-  Tile,
-  Toast
+  Tile
 } from '../Components'
 import { TrainingData } from '../Store'; 
 import { NOTES, INTERVALS } from '../MusicTheory'; 

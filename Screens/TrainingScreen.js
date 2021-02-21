@@ -25,13 +25,6 @@ import { saveTraining, } from '../Store';
 
 
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#333',
-      height: 100
-    }
-  })
 
 
 export default class TrainingScreen extends Component {
@@ -48,8 +41,8 @@ export default class TrainingScreen extends Component {
   
     promptRepetitions = () => (
       <>
-        <Headline style={styles.headline}>Willkommen zum {this.route.params.name} 🎉</Headline>
-        <Paragraph style={styles.paragraph}>Wie viele Wiederholungen?</Paragraph>
+        <Headline>Willkommen zum {this.route.params.name} 🎉</Headline>
+        <Paragraph>Wie viele Wiederholungen?</Paragraph>
         {
             REPITITION_OPTIONS.map(
                 (totalRepetitions, key)=> (
@@ -82,7 +75,7 @@ export default class TrainingScreen extends Component {
     
     render() {
       return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView>
             <ScrollView>
                 {this.state.totalRepetitions == null? 
                 this.promptRepetitions()

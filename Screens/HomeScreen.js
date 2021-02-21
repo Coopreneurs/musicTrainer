@@ -15,13 +15,6 @@ import {
     Tile
 } from '../Components';
 import TRAININGS from '../Trainings'; 
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#333',
-    }
-  })
   
 
 class TrainingTile extends Component {

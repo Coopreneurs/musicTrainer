@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import {
-  View
+  View 
 } from 'react-native';
 
 import {
@@ -14,11 +14,13 @@ import {
 } from './Screens';
 
 import { toaster} from './Toaster';
+// import { pulse } from './Pulse';
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
       <>
+        {/* {pulse} */}
         <NavigationContainer>
           <Stack.Navigator 
             screenOptions={{
@@ -28,7 +30,7 @@ export default function App() {
                 borderBottomWidth: 0
               },
               headerTintColor: '#fff',
-              cardStyle: { backgroundColor: '#333' }
+              cardStyle: { backgroundColor: '#333'}
             }}>
             <Stack.Screen
               name="Home"
@@ -52,7 +54,6 @@ export default function App() {
               })}/>
           </Stack.Navigator>
         </NavigationContainer>
-        
         {toaster}
       </>
   );
