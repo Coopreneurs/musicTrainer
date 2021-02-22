@@ -7,28 +7,50 @@ import {
 import {
     Text
 } from './Components';
- 
+import { componentTypeSanitizer } from './Utils'; 
+
+const   SUCCESS = Symbol('SUCCESS'),  
+        FAILURE = Symbol('FAILURE'), 
+        INFO = Symbol('INFO'), 
+        sanitizeType = componentTypeSanitizer([SUCCESS, FAILURE, INFO], INFO); 
 
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        backgroundColor: '#607D8B',
         padding: 10,
-        paddingBottom: 30,
+        paddingBottom: 10,
         position: 'absolute',
         bottom: 20,
         width: '80%',
         alignSelf: 'center',
         borderRadius: 4,
-        shadowColor: "#B0BEC5",
 		shadowOffset: {
 			width: 0,
 			height: -2,
 		},
 		shadowOpacity: 0.85,
 		shadowRadius: 8,
-        opacity:0.99,
-    }
+        opacity: 0.95,
+        color: '#424242'
+    },
+    success: {
+        backgroundColor: '#E0E0E0',
+        shadowColor: "#B0BEC5",
+        borderLeftColor: '#64DD17',
+        borderLeftWidth: 10
+    },
+    failure: {
+        backgroundColor: '#E0E0E0',
+        shadowColor: "#B0BEC5",
+        borderLeftColor: '#F44336',
+        borderLeftWidth: 10
+    },
+    info: {
+        backgroundColor: '#E0E0E0',
+        shadowColor: "#B0BEC5",
+        borderLeftColor: '#0D47A1',
+        borderLeftWidth: 10
+    },
 })
 class EventEmitter {
     constructor () {
@@ -64,18 +86,29 @@ class EventEmitter {
 } 
 
 
+
+
+
 class Toaster extends Component {
     state = {
         text: null
     }
+    static SUCCESS = SUCCESS;
+    static FAILURE = FAILURE; 
+    static INFO = INFO;
+
     constructor(...args) {
         super(...args);
+        const [props] = args; 
         this.state.y = new Animated.Value(40);
-        // this.state.opacity = new Animated.Value(0);
+        this.state.type = sanitizeType(props.type);
         this.showToast = this.showToast.bind(this);
     }
-    showToast(text) {
-        this.setState({text});
+    showToast({ text, type }) {
+        this.setState({ 
+            text: text,
+            type: sanitizeType(type),
+        });
         Animated.spring(this.state.y, {
             toValue: -20,
             useNativeDriver: true,
@@ -124,20 +157,49 @@ class Toaster extends Component {
         if (!this.state.text) {
             return null;
         }
-        return (
-            <Animated.View 
-            style={[styles.container, {
-                transform: [
-                    {
-                        translateY: this.state.y
-                    }
-                ]
-                }]}>
-                <Text bold>
-                    🎉 Correct! 🎉
-                </Text>
-            </Animated.View>
-        )
+        if (this.state.type == SUCCESS) {
+            return (
+                <Animated.View 
+                    style={[styles.container, styles.success, {transform: [{translateY: this.state.y}]}]}
+                >
+                    <Text style={{color: styles.container.color}} bold>
+                        🎉  Correct! 🎉
+                    </Text>
+                    <Text style={{color: styles.container.color}}>
+                        {this.state.text}
+                    </Text>
+                </Animated.View>
+            )
+        } else if (this.state.type == FAILURE) {
+            return (
+                <Animated.View 
+                    style={[styles.container, styles.failure, {transform: [{translateY: this.state.y}]}]}
+                >
+                    <Text style={{color: styles.container.color}} bold>
+                        😱  Wrong 
+                    </Text>
+                    <Text style={{color: styles.container.color}}>
+                        {this.state.text}
+                    </Text>
+                </Animated.View>
+            )
+
+        } else if (this.state.type == INFO) {
+            return (
+                <Animated.View 
+                    style={[styles.container, styles.info, {transform: [{translateY: this.state.y}]}]}
+                >
+                    <Text style={{color: styles.container.color}} bold>
+                        💡
+                    </Text>
+                    <Text style={{color: styles.container.color}}>
+                        {this.state.text}
+                    </Text>
+                </Animated.View>
+            )
+        } else {
+            throw new Error("toast type unknown!")
+        }
     }
 }
 
@@ -148,5 +210,6 @@ function showToast (text) {
 const toaster = <Toaster eventEmitter={eventEmitter}/>;
 export {
     toaster,
-    showToast
+    showToast, 
+    Toaster, 
 }

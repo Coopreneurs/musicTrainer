@@ -16,6 +16,8 @@ import {
 import { toaster} from './Toaster';
 // import { pulse } from './Pulse';
 const Stack = createStackNavigator();
+const BACKGROUNDCOLOR = '#06c2ac'; //'#000044' '#06c2ac';
+const HEADERCOLOR = '#d8877a'; //'#000044';
 
 export default function App() {
   return (
@@ -25,12 +27,12 @@ export default function App() {
           <Stack.Navigator 
             screenOptions={{
               headerStyle: {
-                backgroundColor: '#333',
-                borderBottomColor: '#333',
+                backgroundColor: BACKGROUNDCOLOR,
+                borderBottomColor: BACKGROUNDCOLOR,
                 borderBottomWidth: 0
               },
               headerTintColor: '#fff',
-              cardStyle: { backgroundColor: '#333'}
+              cardStyle: { backgroundColor: BACKGROUNDCOLOR}
             }}>
             <Stack.Screen
               name="Home"

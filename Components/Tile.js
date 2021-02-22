@@ -7,14 +7,21 @@ import {
 const styles = StyleSheet.create({
   tile: {
     justifyContent: 'center',
-    backgroundColor: '#333',
-    borderWidth: 3,
-    borderColor: '#fff',
+    backgroundColor: '#4e5481', //eedd77
+    // borderWidth: 3,
+    // borderColor: '#fff',
     fontSize: 20,
     margin: 20,
     alignItems: 'center',
     padding: 20,
     borderRadius: 4,
+    shadowOffset: {
+        width: 2,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    shadowColor: '#b0003c'
   }
 })
 

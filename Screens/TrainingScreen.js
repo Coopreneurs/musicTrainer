@@ -63,7 +63,7 @@ export default class TrainingScreen extends Component {
         )
         return <Training saveHistory={this.saveHistory} totalRepetitions={this.state.totalRepetitions} />
       } else {
-        throw "Training unknown"
+        throw new Error("Training unknown")
       }
     }
     saveHistory = async (result) => {

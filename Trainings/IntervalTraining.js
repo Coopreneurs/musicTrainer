@@ -13,7 +13,7 @@ import {
 } from '../Components'
 import { TrainingData } from '../Store'; 
 import { NOTES, INTERVALS } from '../MusicTheory'; 
-import { showToast } from '../Toaster';
+import { showToast, Toaster } from '../Toaster';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +56,10 @@ class IntervallPrompt extends Component {
           opacity: this.state.opacity, 
           transform: [{translateX: this.state.x}]
         }}>
-          <Pressable onPress={() => showToast('Foo')}>
+          <Pressable onPress={() => showToast({
+            text: 'Foo', 
+            type: Toaster.INFO
+          })}>
         <Headline>
           
           Welches Interval möchtest Du trainieren? 🤔
