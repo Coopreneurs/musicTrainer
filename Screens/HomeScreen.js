@@ -12,7 +12,8 @@ import {
 import {
     Text,
     Headline,
-    Tile
+    Tile,
+    Divider
 } from '../Components';
 import TRAININGS from '../Trainings'; 
   
@@ -45,7 +46,6 @@ export default class HomeScreen extends Component {
     constructor (...args) {
         super(...args); 
         const [props] = args; 
-        console.log(props)
         this.navigation = props.navigation; 
         this.goToHistory = () => this.navigation.navigate('History'); 
     }
@@ -60,13 +60,7 @@ export default class HomeScreen extends Component {
                             ({label, type}, key) => (<TrainingTile name={label} type={type} key={key} navigation={this.navigation} />)
                         )
                     }
-                    <View
-                        style={{
-                        borderBottomColor: '#fff',
-                        borderBottomWidth: 1,
-                        margin: 20,
-                        }}
-                    />
+                    <Divider/>
                     <Button 
                         title="History anzeigen" 
                         accessibilityLabel="Zeigt die Übungshistorie" 

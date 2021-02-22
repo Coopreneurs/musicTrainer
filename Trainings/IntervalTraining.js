@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { 
     ActivityIndicator, 
     View, 
-    Pressable,
     StyleSheet,
     Animated
 } from 'react-native';
@@ -56,15 +55,9 @@ class IntervallPrompt extends Component {
           opacity: this.state.opacity, 
           transform: [{translateX: this.state.x}]
         }}>
-          <Pressable onPress={() => showToast({
-            text: 'Foo', 
-            type: Toaster.INFO
-          })}>
         <Headline>
-          
           Welches Interval möchtest Du trainieren? 🤔
         </Headline>
-        </Pressable>
         {
           INTERVALS.map(
             (interval, key) => (
@@ -90,7 +83,6 @@ class IntervalTrainingRound extends Component {
     const [props] = args; 
     this.state = {
       x: new Animated.Value(0),
-      opacity: new Animated.Value(1),
       successOpacity: 0,
       failureOpacity: 0
     }
@@ -98,24 +90,21 @@ class IntervalTrainingRound extends Component {
     this.fadeIn = props.fadeIn.bind(this);
   }
 
-  showSuccess() {
-    this.setState({successOpacity: 1});
-  }
-
-  showFailure() {
-    this.setState({failureOpacity: 1});
-  }
-
   checkResult = (item, choice) => {
     if (item == NOTES[(choice + this.props.interval.value) % 12]) {
-      this.showSuccess();
-      setTimeout(() => {
-        this.props.updateState(1);
-        this.setState({successOpacity:0})
-      },2000)
+      showToast({
+        text: null, 
+        type: Toaster.SUCCESS,
+        duration: 50,
+        callback: () => this.props.updateState(1)
+      });
     } else {
-      // visual feedback 
-      this.props.updateState(0);
+      showToast({
+        text: `Correct answer: ${NOTES[(choice + this.props.interval.value) % 12]}`, 
+        type: Toaster.FAILURE,
+        duration: 50,
+        callback: () => this.props.updateState(0)
+      });
     }
   }
   render() {
@@ -168,7 +157,7 @@ export default class IntervalTraining extends Component {
         interval: null, 
         score: 0,
         repetitions: 0,
-        choice: Math.floor(Math.random() * 13),
+        choice: Math.floor(Math.random() * 12.9),
         x: new Animated.Value(-100),
         opacity: new Animated.Value(0),
       }
@@ -207,16 +196,17 @@ export default class IntervalTraining extends Component {
       })
     }
     render () {
+      console.log(this.state.choice)
       if (this.state.repetitions == this.state.totalRepetitions) {
         // Training complete. Saving...
-        const type = 'interval', 
+        const type = this.constructor, 
               { 
                 startTime, 
                 totalRepetitions,
                 score
               } = this.state, 
               endTime = new Date, 
-              duration = endTime - startTime; 
+              duration = (endTime.getTime() - startTime.getTime())/1000;
         this.props.saveHistory(
           new TrainingData(
             startTime, 
@@ -226,9 +216,7 @@ export default class IntervalTraining extends Component {
             duration
           )
         );
-        return(
-          <ActivityIndicator />
-        )
+        return null;
       } else {
         return (
           this.state.interval == null?

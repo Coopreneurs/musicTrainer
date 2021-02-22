@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 export default class Paragraph extends Component {
     render () {
         return(
-            <Text style={styles.paragraph}>
+            <Text {...this.props} style={[styles.paragraph, {color: this.props.color}]}>
                 {this.props.children}
             </Text>
         )
