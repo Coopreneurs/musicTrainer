@@ -1,14 +1,15 @@
 {
   "expo": {
-    "name": "musicTrainer",
+    "name": "music Trainer",
     "slug": "musicTrainer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "primaryColor": "#06c2ac",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#06c2ac"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,13 +18,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.packebusch.musicTrainer",
+      "buildNumber": "1.0.0"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "permissions": [],
+      "package": "com.packebusch.musicTrainer",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

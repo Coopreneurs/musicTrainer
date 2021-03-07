@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { 
-    ActivityIndicator, 
     Button, 
-    StyleSheet, 
-    SafeAreaView, 
-    Pressable, 
+    SafeAreaView,  
     ScrollView, 
-    View, 
-    Alert 
 } from 'react-native';
 import {
     Text,
@@ -48,6 +43,8 @@ export default class HomeScreen extends Component {
         const [props] = args; 
         this.navigation = props.navigation; 
         this.goToHistory = () => this.navigation.navigate('History'); 
+        this.goToPrivacy = () => this.navigation.navigate('Privacy'); 
+        this.goToTermsAndConditions = () => this.navigation.navigate('TermsAndConditions');
     }
 
     render () {
@@ -65,6 +62,16 @@ export default class HomeScreen extends Component {
                         title="History anzeigen" 
                         accessibilityLabel="Zeigt die Übungshistorie" 
                         onPress={this.goToHistory} 
+                    />
+                     <Button 
+                        title="Privacy Statement" 
+                        accessibilityLabel="Zeigt die Datenschutzunterrichtung" 
+                        onPress={this.goToPrivacy} 
+                    />
+                     <Button 
+                        title="T'n'C anzeigen" 
+                        accessibilityLabel="Zeigt die Terms and Conditions" 
+                        onPress={this.goToTermsAndConditions} 
                     />
                 </ScrollView>
             </SafeAreaView>

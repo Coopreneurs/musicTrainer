@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { 
-    ActivityIndicator, 
     View, 
     StyleSheet,
     Animated
@@ -28,14 +27,14 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   options: {
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   option: {
     borderWidth: 1,
     margin: 10,
-
+    flexBasis: '25%'
   },
 })
 
@@ -157,7 +156,7 @@ export default class IntervalTraining extends Component {
         interval: null, 
         score: 0,
         repetitions: 0,
-        choice: Math.floor(Math.random() * 12.9),
+        choice: Math.floor(Math.random() * 11.9),
         x: new Animated.Value(-100),
         opacity: new Animated.Value(0),
       }
@@ -192,11 +191,10 @@ export default class IntervalTraining extends Component {
       this.setState({
         score: this.state.score + result,
         repetitions: this.state.repetitions + 1,
-        choice: Math.floor(Math.random() * 13)
+        choice: Math.floor(Math.random() * 11.9)
       })
     }
     render () {
-      console.log(this.state.choice)
       if (this.state.repetitions == this.state.totalRepetitions) {
         // Training complete. Saving...
         const type = this.constructor, 

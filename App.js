@@ -2,15 +2,14 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-import {
-  View 
-} from 'react-native';
-
+import AppLoading from 'expo-app-loading';
+import { Asset } from 'expo-asset';
 import {
   HomeScreen, 
   HistoryScreen, 
-  TrainingScreen
+  TrainingScreen,
+  PrivacyScreen,
+  TnCScreen
 } from './Screens';
 
 import { toaster} from './Toaster';
@@ -19,8 +18,21 @@ const Stack = createStackNavigator();
 const BACKGROUNDCOLOR = '#06c2ac'; //'#000044' '#06c2ac';
 const HEADERCOLOR = '#d8877a'; //'#000044';
 
-export default function App() {
-  return (
+export default class App extends React.Component {
+  state = {
+    isReady: false,
+  };
+  render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._cacheResourcesAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+        />
+      );
+    }
+    return (
       <>
         {/* {pulse} */}
         <NavigationContainer>
@@ -48,6 +60,20 @@ export default function App() {
                 title: 'History'
               }}
             />
+            <Stack.Screen
+              name="Privacy"
+              component={PrivacyScreen}
+              options={{ 
+                title: 'Datenschutzunterrichtung'
+              }}
+            />
+            <Stack.Screen
+              name="TermsAndConditions"
+              component={TnCScreen}
+              options={{ 
+                title: 'Nutzungsvereinbarung'
+              }}
+            />
             <Stack.Screen 
               name={"Training"} 
               component={TrainingScreen} 
@@ -58,5 +84,14 @@ export default function App() {
         </NavigationContainer>
         {toaster}
       </>
-  );
+    );
+  }
+
+  async _cacheResourcesAsync() {
+    const images = [require('./assets/icon.png')];
+    const cacheImages = images.map(image => {
+      return Asset.fromModule(image).downloadAsync();
+    }); 
+    return Promise.all(cacheImages);
+  }
 }
